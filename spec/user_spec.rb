@@ -90,5 +90,9 @@ describe User do
       user.login("username", "apikey")
       expect { user.list_payments }.to output("{\"id\"=>\"31db334f-9ac0-42cb-804b-09b2f899d4d2\", \"amount\"=>\"10.50\", \"currency\"=>\"GBP\", \"recipient_id\"=>\"6e7b146e-5957-11e6-8b77-86f30ca893d3\", \"status\"=>\"paid\"}\n").to_stdout
     end
+
+    it "raises an error if the user isn't logged in" do
+      expect { user.list_payments }.to raise_error "Login required"
+    end
   end
 end
