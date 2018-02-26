@@ -13,8 +13,7 @@ class User
 
   def login(username, apikey)
     @username = username
-    @apikey = apikey
-    values = "{'username': #{@username}, 'apikey': #{@apikey}}"
+    values = "{'username': #{@username}, 'apikey': #{apikey}}"
     response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, login_headers
     @token = JSON.parse(response)['token']
   end
