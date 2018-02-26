@@ -46,6 +46,10 @@ describe User do
       user.login("username", "apikey")
       expect { user.list_recipients }.to output("{\"name\"=>\"Jake McFriend\", \"id\"=>\"61587f02-ca6f-4b64-b3c9-1d35985d0415\"}\n").to_stdout
     end
+
+    it "raises an error if the user isn't logged in" do
+      expect { user.list_recipients }.to raise_error "Login required"
+    end
   end
 
   describe "#search_recipients" do
@@ -58,8 +62,12 @@ describe User do
           :authorization => 'Bearer e815858f-e670-445b-b3c2-bbb6cf1586cc'
          }).
           to_return(:status => 200, :body => response)
-      user.login("username", "apikey")    
+      user.login("username", "apikey")
       expect { user.search_recipients("Jake McFriend") }.to output("{\"name\"=>\"Jake McFriend\", \"id\"=>\"61587f02-ca6f-4b64-b3c9-1d35985d0415\"}\n").to_stdout
+    end
+
+    it "raises an error if the user isn't logged in" do
+      expect { user.search_recipients("Jake McError") }.to raise_error "Login required"
     end
   end
 end

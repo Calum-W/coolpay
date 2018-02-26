@@ -25,6 +25,7 @@ class User
   end
 
   def list_recipients
+    check_user
     headers = {
       :content_type => 'application/json',
       :authorization => 'Bearer ' + @token
@@ -34,6 +35,7 @@ class User
   end
 
   def search_recipients(name)
+    check_user
     headers = {
       :content_type => 'application/json',
       :authorization => 'Bearer ' + @token
