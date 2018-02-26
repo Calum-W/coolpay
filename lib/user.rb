@@ -36,9 +36,9 @@ class User
     puts JSON.parse(response)['recipients']
   end
 
-  def pay(amount, recipient)
+  def pay(amount, recipient, currency = "GBP")
     check_user
-    payment = Payment.new(amount, recipient)
+    payment = Payment.new(amount, recipient, currency)
     payment.send_payment(@token)
   end
 
