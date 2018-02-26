@@ -3,7 +3,7 @@ require 'json'
 
 class User
 
-  attr_reader :token
+  attr_reader :token, :username
 
   def initialize
     @token = nil
