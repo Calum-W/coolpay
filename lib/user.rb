@@ -14,9 +14,8 @@ class User
   def login(username, apikey)
     @username = username
     @apikey = apikey
-    loginheaders = {:content_type => 'application/json'}
     values = "{'username': #{@username}, 'apikey': #{@apikey}}"
-    response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, loginheaders
+    response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, login_headers
     @token = JSON.parse(response)['token']
   end
 
@@ -28,21 +27,13 @@ class User
 
   def list_recipients
     check_user
-    headers = {
-      :content_type => 'application/json',
-      :authorization => 'Bearer ' + @token
-    }
-    response = RestClient.get 'https://coolpay.herokuapp.com/api/recipients', headers
+    response = RestClient.get 'https://coolpay.herokuapp.com/api/recipients', default_headers
     puts JSON.parse(response)['recipients']
   end
 
   def search_recipients(name)
     check_user
-    headers = {
-      :content_type => 'application/json',
-      :authorization => 'Bearer ' + @token
-    }
-    response = RestClient.get "https://coolpay.herokuapp.com/api/recipients?name=#{name}", headers
+    response = RestClient.get "https://coolpay.herokuapp.com/api/recipients?name=#{name}", default_headers
     puts JSON.parse(response)['recipients']
   end
 
@@ -54,16 +45,23 @@ class User
 
   def list_payments
     check_user
-    headers = {
-      :content_type => 'application/json',
-      :authorization => 'Bearer ' + @token
-    }
-    response = RestClient.get 'https://coolpay.herokuapp.com/api/payments', headers
+    response = RestClient.get 'https://coolpay.herokuapp.com/api/payments', default_headers
     puts JSON.parse(response)['payments']
   end
 
   private
   def check_user
     fail "Login required" if @token == nil
+  end
+
+  def login_headers
+    {:content_type => 'application/json'}
+  end
+
+  def default_headers
+    {
+      :content_type => 'application/json',
+      :authorization => 'Bearer ' + @token
+    }
   end
 end
