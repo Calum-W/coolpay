@@ -1,5 +1,7 @@
 require 'rest_client'
 require 'json'
+require 'recipient'
+require 'payment'
 
 class User
 
@@ -42,6 +44,10 @@ class User
     }
     response = RestClient.get "https://coolpay.herokuapp.com/api/recipients?name=#{name}", headers
     puts JSON.parse(response)['recipients']
+  end
+
+  def pay(recipient, amount)
+
   end
 
   private
