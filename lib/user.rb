@@ -19,7 +19,13 @@ class User
   end
 
   def add_recipient(name)
+    check_user
     recipient = Recipient.new(name)
     recipient.add(@token)
+  end
+
+  private
+  def check_user
+    fail "Login required" if @token == nil
   end
 end
