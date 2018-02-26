@@ -8,10 +8,15 @@ describe User do
     response = '{"token":"e815858f-e670-445b-b3c2-bbb6cf1586cc"}'
     stub_request(:post, "https://coolpay.herokuapp.com/api/login").
     with(
-     body: "{'username': username, 'apikey': apikey}",
-     headers: {
-    'Content-Type' => 'application/json',
-     }).
+      body: "{\"username\":\"username\",\"apikey\":\"apikey\"}",
+            headers: {
+           'Accept'=>'*/*',
+           'Accept-Encoding'=>'gzip, deflate',
+           'Content-Length'=>'41',
+           'Content-Type'=>'application/json',
+           'Host'=>'coolpay.herokuapp.com',
+           'User-Agent'=>'rest-client/2.0.2 (mingw32 x86_64) ruby/2.2.6p396'
+            }).
         to_return(:status => 200, :body => response)
   end
 

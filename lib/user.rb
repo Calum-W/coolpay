@@ -1,7 +1,7 @@
 require 'rest_client'
 require 'json'
-require 'recipient'
-require 'payment'
+require_relative 'recipient'
+require_relative 'payment'
 
 class User
 
@@ -13,7 +13,7 @@ class User
 
   def login(username, apikey)
     @username = username
-    values = "{'username': #{@username}, 'apikey': #{apikey}}"
+    values = {username: @username, apikey: apikey}.to_json
     response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, login_headers
     @token = JSON.parse(response)['token']
   end
