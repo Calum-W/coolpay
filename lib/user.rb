@@ -17,4 +17,9 @@ class User
     response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, loginheaders
     @token = JSON.parse(response)['token']
   end
+
+  def add_recipient(name)
+    recipient = Recipient.new(name)
+    recipient.add(@token)
+  end
 end
