@@ -9,12 +9,12 @@ describe Recipient do
       response = '{"recipient": {"name": "Jake McStubby", "id": "e9a0336b-d81d-4009-9ad1-8fa1eb43418c"}}'
       stub_request(:post, "https://coolpay.herokuapp.com/api/recipients").
          with(
-           body: "{\n               'recipient': {\n                 'name': Jake McStubby\n                }\n               }",
+           body: "{'recipient': {'name': Jake McStubby}}",
            headers: {
           'Accept'=>'*/*',
           'Accept-Encoding'=>'gzip, deflate',
           'Authorization'=>'Bearer mock_token',
-          'Content-Length'=>'105',
+          'Content-Length'=>'38',
           'Content-Type'=>'application/json',
           'Host'=>'coolpay.herokuapp.com',
           'User-Agent'=>'rest-client/2.0.2 (mingw32 x86_64) ruby/2.2.6p396'
