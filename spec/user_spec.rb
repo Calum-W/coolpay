@@ -70,4 +70,10 @@ describe User do
       expect { user.search_recipients("Jake McError") }.to raise_error "Login required"
     end
   end
+
+  describe "#pay" do
+    it "raises an error if the user isn't logged in" do
+      expect { user.pay(10, "Jake McError") }.to raise_error "Login required"
+    end
+  end
 end

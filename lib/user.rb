@@ -46,8 +46,10 @@ class User
     puts JSON.parse(response)['recipients']
   end
 
-  def pay(recipient, amount)
-
+  def pay(amount, recipient)
+    check_user
+    payment = Payment.new(amount, recipient)
+    payment.send_payment
   end
 
   private
