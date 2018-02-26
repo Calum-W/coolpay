@@ -49,7 +49,16 @@ class User
   def pay(amount, recipient)
     check_user
     payment = Payment.new(amount, recipient)
-    payment.send_payment
+    payment.send_payment(@token)
+  end
+
+  def list_payments
+    headers = {
+      :content_type => 'application/json',
+      :authorization => 'Bearer ' + @token
+    }
+    response = RestClient.get 'https://coolpay.herokuapp.com/api/payments', headers
+    puts JSON.parse(response)['payments']
   end
 
   private

@@ -76,4 +76,19 @@ describe User do
       expect { user.pay(10, "Jake McError") }.to raise_error "Login required"
     end
   end
+
+  describe "#list_payments" do
+    it "prints a hash of payments" do
+      response = '{"payments": [{"id": "31db334f-9ac0-42cb-804b-09b2f899d4d2", "amount": "10.50", "currency": "GBP", "recipient_id": "6e7b146e-5957-11e6-8b77-86f30ca893d3", "status": "paid"}]}'
+      stub_request(:get, "https://coolpay.herokuapp.com/api/payments").
+      with(
+        headers: {
+          :content_type => 'application/json',
+          :authorization => 'Bearer e815858f-e670-445b-b3c2-bbb6cf1586cc'
+         }).
+          to_return(:status => 200, :body => response)
+      user.login("username", "apikey")
+      expect { user.list_payments }.to output("{\"id\"=>\"31db334f-9ac0-42cb-804b-09b2f899d4d2\", \"amount\"=>\"10.50\", \"currency\"=>\"GBP\", \"recipient_id\"=>\"6e7b146e-5957-11e6-8b77-86f30ca893d3\", \"status\"=>\"paid\"}\n").to_stdout
+    end
+  end
 end
