@@ -24,6 +24,15 @@ class User
     recipient.add(@token)
   end
 
+  def list_recipients
+    headers = {
+      :content_type => 'application/json',
+      :authorization => 'Bearer ' + @token
+    }
+    response = RestClient.get 'https://coolpay.herokuapp.com/api/recipients', headers
+    puts JSON.parse(response)['recipients']
+  end
+
   private
   def check_user
     fail "Login required" if @token == nil
