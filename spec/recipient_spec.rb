@@ -9,7 +9,7 @@ describe Recipient do
       response = '{"recipient": {"name": "Jake McStubby", "id": "e9a0336b-d81d-4009-9ad1-8fa1eb43418c"}}'
       stub_request(:post, "https://coolpay.herokuapp.com/api/recipients").
          with(
-           body: "{'recipient': {'name': Jake McStubby}}",
+           body: "{\"recipient\":{\"name\":\"Jake McStubby\"}}",
            headers: {
           'Accept'=>'*/*',
           'Accept-Encoding'=>'gzip, deflate',

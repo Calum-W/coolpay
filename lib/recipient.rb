@@ -10,7 +10,7 @@ class Recipient
   end
 
   def add(token)
-    values = "{'recipient': {'name': #{@name}}}"
+    values = {recipient: {name: @name}}.to_json
     headers = {
       :content_type => 'application/json',
       :authorization => "Bearer #{token}"

@@ -10,7 +10,7 @@ class Payment
   end
 
   def send_payment(token)
-    values = "{'payment': {'amount': #{@amount}, 'currency': #{@currency}, 'recipient_id': #{@recipient}}}"
+    values = {payment: {amount: @amount, currency: @currency, recipient_id: @recipient}}.to_json
     headers = {
       :content_type => 'application/json',
       :authorization => "Bearer #{token}"
