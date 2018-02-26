@@ -61,7 +61,7 @@ class User
   def default_headers
     {
       :content_type => 'application/json',
-      :authorization => 'Bearer ' + @token
+      :authorization => "Bearer #{@token}"
     }
   end
 end
