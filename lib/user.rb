@@ -33,6 +33,15 @@ class User
     puts JSON.parse(response)['recipients']
   end
 
+  def search_recipients(name)
+    headers = {
+      :content_type => 'application/json',
+      :authorization => 'Bearer ' + @token
+    }
+    response = RestClient.get "https://coolpay.herokuapp.com/api/recipients?name=#{name}", headers
+    puts JSON.parse(response)['recipients']
+  end
+
   private
   def check_user
     fail "Login required" if @token == nil

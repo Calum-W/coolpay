@@ -33,7 +33,7 @@ describe User do
     end
   end
 
-  describe "list_recipients" do
+  describe "#list_recipients" do
     it "prints a hash of recipients" do
       response = '{"recipients":[{"name":"Jake McFriend","id":"61587f02-ca6f-4b64-b3c9-1d35985d0415"}]}'
       stub_request(:get, "https://coolpay.herokuapp.com/api/recipients").
@@ -45,6 +45,21 @@ describe User do
           to_return(:status => 200, :body => response)
       user.login("username", "apikey")
       expect { user.list_recipients }.to output("{\"name\"=>\"Jake McFriend\", \"id\"=>\"61587f02-ca6f-4b64-b3c9-1d35985d0415\"}\n").to_stdout
+    end
+  end
+
+  describe "#search_recipients" do
+    it "prints a hash of recipients matching the name given" do
+      response = '{"recipients":[{"name":"Jake McFriend","id":"61587f02-ca6f-4b64-b3c9-1d35985d0415"}]}'
+      stub_request(:get, "https://coolpay.herokuapp.com/api/recipients?name=Jake McFriend").
+      with(
+        headers: {
+          :content_type => 'application/json',
+          :authorization => 'Bearer e815858f-e670-445b-b3c2-bbb6cf1586cc'
+         }).
+          to_return(:status => 200, :body => response)
+      user.login("username", "apikey")    
+      expect { user.search_recipients("Jake McFriend") }.to output("{\"name\"=>\"Jake McFriend\", \"id\"=>\"61587f02-ca6f-4b64-b3c9-1d35985d0415\"}\n").to_stdout
     end
   end
 end
