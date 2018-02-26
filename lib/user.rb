@@ -9,8 +9,12 @@ class User
     @token = nil
   end
 
-  def login(loginheaders, values, site)
-    response = RestClient.post site, values, loginheaders
+  def login(username, apikey)
+    @username = username
+    @apikey = apikey
+    loginheaders = {:content_type => 'application/json'}
+    values = "{'username': #{@username}, 'apikey': #{@apikey}}"
+    response = RestClient.post 'https://coolpay.herokuapp.com/api/login', values, loginheaders
     @token = JSON.parse(response)['token']
   end
 end

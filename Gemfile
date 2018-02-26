@@ -9,4 +9,5 @@ group :development, :test do
   gem "json"
   gem "rest-client"
   gem "rspec"
+  gem "webmock"
 end
